@@ -131,8 +131,8 @@ const Home = () => {
                 Link Current User to Google
             </button>
             <br />
-            <p>Current User Display is: {currentUser.displayName}</p>
-            <p>Current User Email is: {currentUser.email}</p>
+            <p>Current User Display is: {currentUser?.displayName}</p>
+            <p>Current User Email is: {currentUser?.email}</p>
             <button onClick={onUnLinkCurrentUSer}>
                 Unlink Current User with Google
             </button>
