@@ -64,8 +64,29 @@ const Home = () => {
             });
     };
 
+    const onTestLogin = () => {
+        let email = 'testabc@gmail.com';
+        let password = 'ntuedtd';
+
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in
+                // var user = userCredential.user;
+                // ...
+                console.log(userCredential);
+            })
+            .catch((error) => {
+                console.log(error);
+                // var errorCode = error.code;
+                // var errorMessage = error.message;
+            });
+    };
+
     const onShowCurrentUser = () => {
         let user = firebase.auth().currentUser;
+        console.log(user);
         setCurrentUser(user);
     };
 
@@ -87,12 +108,24 @@ const Home = () => {
             });
     };
 
+    const onUnLinkCurrentUSer = () => {
+        currentUser
+            .unlink(currentUser?.providerData[0]?.providerId)
+            .then(() => {})
+            .catch((error) => {
+                console.log(error);
+                // Handle Errors here.
+                // ...
+            });
+    };
+
     return (
         <div className={styles.container}>
             <Header />
             This is Home page
             <button onClick={onGoogleSignIn}>Click on Google sign-in</button>
             <button onClick={onMurphyLogin}>sign in with Murphy</button>
+            <button onClick={onTestLogin}>sign in Test Account</button>
             <button onClick={onShowCurrentUser}>Show Current User</button>
             <button onClick={onLinkCurrentUserToGoogle}>
                 Link Current User to Google
@@ -100,6 +133,9 @@ const Home = () => {
             <br />
             <p>Current User Display is: {currentUser.displayName}</p>
             <p>Current User Email is: {currentUser.email}</p>
+            <button onClick={onUnLinkCurrentUSer}>
+                Unlink Current User with Google
+            </button>
         </div>
     );
 };
